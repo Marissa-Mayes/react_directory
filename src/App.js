@@ -1,13 +1,13 @@
 
 import React, { useEffect ,useState} from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 function App() {
   const [state, setState]=useState([{}])
   useEffect(()=>{
     async function fetchData(){
-    let response = await fetch("https://randomuser.me/api/?results=10")
+    let response = await fetch("https://randomuser.me/api/?results=60")
     let body = await response.json()
     console.log(body.results)
     setState(body.results)
@@ -15,7 +15,7 @@ function App() {
     }
     fetchData()
   }, [])
- 
+
   function sortIt(){
     console.log("click detected")
     let dontMessWithState = [...state];
@@ -47,23 +47,16 @@ function filterIt() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <h1> Employee Directory</h1>
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <p>
-          click <code onClick={()=>sortIt()}>Alpohabetize</code> to alphabetize
-          
+         <button onClick={()=>sortIt()}>Alphabetize list</button> 
         </p>
-        <button onClick ={()=>filterIt()}>just ladies</button>
+        <button onClick ={()=>filterIt()}>Female Employees</button>
         {state.map((person, index)=>(
           <h1 key={index}>{person?.name?.first}</h1>
         ))}
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+   
       </header>
     </div>
   );
